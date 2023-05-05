@@ -54,9 +54,7 @@ README.md
     
     </aside>
     
-    ***We have this warning in the subject. What is the difference between a race***      
-    
-                                    ***condition and a data race?”***
+    ***We have this warning in the subject. What is the difference between a race condition and a data race?***  
     
     <aside>
     💡 ***A race condition*** occurs when two or more processes or threads are trying to access a shared resource (such as memory or a file) at the same time, and the outcome of the program depends on the order in which these processes are executed. In other words, a race condition occurs when the behavior of a program depends on the timing of events.
