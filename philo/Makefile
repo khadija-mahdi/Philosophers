@@ -2,6 +2,8 @@ NAME = philo
 
 SRC= main.c\
 	philosophers.c\
+	utils.c\
+	philo_utils/libft_utils.c
 
 OBJ_DIR = objects
 
@@ -21,7 +23,7 @@ $(OBJ_DIR)/%.o: %.c
 	@$(CC) ${CFLAGS} -c $< -o $@
 
 $(NAME): $(OBJ) 
-	@$(CC) $(CFLAGS)  $(OBJ)  -o $(NAME)
+	@$(CC) $(CFLAGS)  $(OBJ)  -fsanitize=address -g3 -o $(NAME)
 	@echo "COMPILING MY PROGRAM ...\n"
 
 clean:
