@@ -33,7 +33,7 @@ README.md
     If we had to wait for a song to finish to be able to open our browser, or if we had to restart the computer
     to kill a program caught in an infinite loop, we’d die of frustration!*
 
-  *There are three ways to implement concurrency in our programs:  [Process](pipex%20f3f377eedb644f1a805c6f479d7576c0/Process%205489eb2fa3234436838be5c8933e078e.md) , threads,  and multiplexing. Let’s concentrate on threads that we should use in our project .*
+  *There are three ways to implement concurrency in our programs:  [Process](https://github.com/khadija-mahdi/pipex/blob/master/pipex%20f3f377eedb644f1a805c6f479d7576c0/Process%205489eb2fa3234436838be5c8933e078e.md) , threads,  and multiplexing. Let’s concentrate on threads that we should use in our project .*
 
 - **What is a Thread**
     
