@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:01:05 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/04 18:32:22 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/13 05:00:59 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static int	count(const char *str, int sym)
 	while (ft_isdigit(*str))
 	{
 		res = 10 * res + (*str - '0');
-		if (res > 9223372036854775807 && sym == 1)
-			return (-1);
+		if (res > 2147483647 && sym == 1)
+			exit_msg("ERROR : Invalid argument\n", 1);
 		str++;
 	}
 	return (res * sym);
@@ -42,7 +42,7 @@ int	ft_atoi(const char *str)
 
 int	ft_isdigit(int c)
 {
-	if (c >= '0' && c <= '9')
+	if ((c >= '0' && c <= '9') || c == '+')
 		return (1);
 	else
 		return (0);

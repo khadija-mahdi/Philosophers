@@ -3,7 +3,9 @@ NAME = philo
 SRC= main.c\
 	philosophers.c\
 	utils.c\
-	philo_utils/libft_utils.c
+	init.c\
+	philo_utils/libft_utils.c\
+
 
 OBJ_DIR = objects
 
