@@ -29,19 +29,19 @@ long running_time(struct timeval start_time, struct timeval current_time)
 
 void	*philo_created(void *arg)
 {
-	t_data			**data;
+	t_data			*data;
+	int i = 0;
 	struct timeval start_time, current_time;
 
     gettimeofday(&start_time, NULL);
 	data = (t_data *) arg;
 	while (1)
 	{
-		sleep(1);
 		long total_microseconds = running_time(start_time, current_time);
-		pthread_mutex_lock(data[i]->forks);
-		printf(" %ld philosopher number %d has taken a fork\n",total_microseconds, data[i]->args->philo_nbr);
-		usleep(data[i]->args->eat_time);
-		pthread_mutex_unlock(data[i]->forks);
+		pthread_mutex_lock(data->forks);
+		printf(" %ld philosopher number %d has taken a fork\n",total_microseconds, data->philo_id);
+		usleep(data->args->eat_time);
+		pthread_mutex_unlock(data->forks);
 	}
 	return (NULL);
 }
@@ -50,11 +50,13 @@ void 	create_forks(t_data **data)
 {
 	int				i;
 
-	i = -1;
-	while (++i < data[i]->args->philo_nbr)
+	i = 0;
+	int philo_nbr = data[0]->args->philo_nbr;
+	while (i < philo_nbr)
 	{
-		if (pthread_mutex_init(&data[i]->forks, NULL))
+		if (pthread_mutex_init(data[i]->forks, NULL))
 			return;
+		i++;
 	}
 }
 
@@ -62,12 +64,14 @@ void	create_philosophers(t_data **data)
 {
 	int				i;
 
-	i = -1;
-	while (++i < data->args->philo_nbr)
+	i = 0;
+	int philo_nbr = data[0]->args->philo_nbr;
+	while (i < philo_nbr)
 	{
-		if (pthread_create(&data[i]->philosophers, NULL, philo_created,
-				&data[i]->forks))
+		if (pthread_create(data[i]->philosophers, NULL, philo_created,
+				data[i]))
 			return;
+		i++;
 	}
 	return;
 }
@@ -77,6 +81,10 @@ int	main(int argc, char **argv)
 	t_data			**data;
 
 	data = init_data(argv, argc);
-	create_philosophers(data);
 	create_forks (data);
+	create_philosophers(data);
+	int i = 0;
+	while (i < data[0]->args->philo_nbr)
+		pthread_join(*(data[i++]->philosophers), NULL);
+	
 }

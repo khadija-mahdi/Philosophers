@@ -27,7 +27,7 @@ t_arguments	*init_arguments(char **argv, int argc)
 	return (arguments);
 }
 
-t_data	*init_data(char **argv, int argc)
+t_data	**init_data(char **argv, int argc)
 {
 	t_arguments		*arguments;
 	t_data			**data;
@@ -37,11 +37,11 @@ t_data	*init_data(char **argv, int argc)
 	int i = 0;
 	while( i < arguments->philo_nbr)
 	{
-		t_data *dt = malloc(sizeof(t_data));
-		dt->args = init_arguments(argv, argc);
-		dt->forks = malloc(sizeof(pthread_mutex_t));
-		dt->philosophers = malloc(sizeof(pthread_t));
-		data[i] = dt;
+		data[i] = malloc(sizeof(t_data));
+		data[i]->args = init_arguments(argv, argc);
+		data[i]->forks = malloc(sizeof(pthread_mutex_t));
+		data[i]->philosophers = malloc(sizeof(pthread_t));
+		data[i]->philo_id = i + 1;
 		i++;
 	}
 	return (data);

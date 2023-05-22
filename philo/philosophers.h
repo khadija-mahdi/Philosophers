@@ -31,7 +31,48 @@ typedef struct s_arguments
 }	t_arguments;
 
 typedef struct s_data
+{#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
+
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <sys/time.h>
+
+typedef struct s_arguments
 {
+	int		philo_nbr;
+	int		die_time;
+	int		eat_time;
+	int		sleep_time;
+	int		mails_nbr;
+	int		forks;
+}	t_arguments;
+
+typedef struct s_data
+{
+	pthread_mutex_t		*forks;
+	pthread_t			*philosophers;
+	int					philo_id;
+	struct s_arguments	*args;
+
+}	t_data;
+
+
+int				ft_isdigit(int c);
+int				ft_atoi(const char *str);
+int				is_string_digits(char *str);
+void			exit_msg(char *msg, int i);
+size_t			ft_strlen(const char *c);
+int				ft_strcmp(char *s1, char *s2);
+void			check_arguments(char **argv, int argc);
+t_arguments		*init_arguments(char **argv, int argc);
+t_data			**init_data(char **argv, int argc);
+void			*philo_created(void *arg);
+// pthread_mutex_t	*create_forks(t_data *data);
+// pthread_t		*create_philosophers(t_data *data);
 	pthread_mutex_t		*forks;
 	pthread_t			*philosophers;
 	struct s_arguments	*args;
