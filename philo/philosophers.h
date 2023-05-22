@@ -38,6 +38,7 @@ typedef struct s_data
 
 }	t_data;
 
+
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
 int				is_string_digits(char *str);
@@ -46,9 +47,9 @@ size_t			ft_strlen(const char *c);
 int				ft_strcmp(char *s1, char *s2);
 void			check_arguments(char **argv, int argc);
 t_arguments		*init_arguments(char **argv, int argc);
-t_data			*init_data(char **argv, int argc);
+t_data			**init_data(char **argv, int argc);
 void			*philo_created(void *arg);
-pthread_mutex_t	*create_forks(t_data *data);
-pthread_t		*create_philosophers(t_data *data);
+// pthread_mutex_t	*create_forks(t_data *data);
+// pthread_t		*create_philosophers(t_data *data);
 
 #endif

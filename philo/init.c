@@ -30,12 +30,19 @@ t_arguments	*init_arguments(char **argv, int argc)
 t_data	*init_data(char **argv, int argc)
 {
 	t_arguments		*arguments;
-	t_data			*data;
+	t_data			**data;
 
 	arguments = init_arguments(argv, argc);
-	data = malloc(sizeof(t_data));
-	data->args = init_arguments(argv, argc);
-	data->forks = malloc(sizeof(pthread_mutex_t) * arguments->philo_nbr);
-	data->philosophers = malloc(sizeof(pthread_t) * arguments->philo_nbr);
+	data = malloc(sizeof(t_data *) * arguments->philo_nbr);
+	int i = 0;
+	while( i < arguments->philo_nbr)
+	{
+		t_data *dt = malloc(sizeof(t_data));
+		dt->args = init_arguments(argv, argc);
+		dt->forks = malloc(sizeof(pthread_mutex_t));
+		dt->philosophers = malloc(sizeof(pthread_t));
+		data[i] = dt;
+		i++;
+	}
 	return (data);
 }
