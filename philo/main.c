@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: khadija-mahdi <khadija-mahdi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:58 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/24 04:48:36 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/24 18:06:38 by khadija-mah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,28 @@ void	my_usleep(int time)
 	}
 }
 
+void left_forks(t_data *data, long total_microseconds)
+{
+	pthread_mutex_lock(data->args->mu_print);
+	printf("%ld philosopher number %d has taken a left fork \n\n",total_microseconds, data->philo_id);
+	pthread_mutex_unlock(data->args->mu_print);
+}
+
+void right_fork(t_data *data, long total_microseconds)
+{
+	pthread_mutex_lock(data->args->mu_print);
+	printf("%ld philosopher number %d has taken a right fork\n\n",total_microseconds, data->philo_id);
+	pthread_mutex_unlock(data->args->mu_print);
+}
+
+void	eating(t_data *data, long total_microseconds)
+{
+	pthread_mutex_lock(data->args->mu_print);
+	printf("%ld philosopher number %d is eting\n\n",total_microseconds, data->philo_id);
+	pthread_mutex_unlock(data->args->mu_print);
+	my_usleep(data->args->eat_time * 1000);
+}
+
 void	*philo_created(void *arg)
 {
 	t_philos	*philos;
@@ -82,56 +104,48 @@ void	*philo_created(void *arg)
 	while (1)
 	{
 		// Pick up forks
-	
+			//lift_fork;
+		pthread_mutex_lock(data->forks);
 		total_microseconds = get_program_time(data);	
-		//lift_fork;
-		int t = pthread_mutex_lock(data->forks);
-		
-		pthread_mutex_lock(data->args->mu_print);
-		printf("%ld philosopher number %d has taken a left fork \n",total_microseconds, data->philo_id);
-		pthread_mutex_unlock(data->args->mu_print);
-
-		//right_fork
-		pthread_mutex_lock(next_data->forks);
+		left_forks(data, total_microseconds);
 	
-		pthread_mutex_lock(data->args->mu_print);
-		printf("%ld philosopher number %d has taken a right fork add %p %d\n",total_microseconds, data->philo_id,next_data->forks,t);
-		pthread_mutex_unlock(data->args->mu_print);
+			//right_fork
+		pthread_mutex_lock(next_data->forks);
+		total_microseconds = get_program_time(data);	
+		right_fork(data, total_microseconds);
 		
 		// Eating
-
-		pthread_mutex_lock(data->args->mu_print);
-		printf("%ld philosopher number %d is eting\n",total_microseconds, data->philo_id);
-		pthread_mutex_unlock(data->args->mu_print);
-		
-		my_usleep(data->args->eat_time * 1000);
-		miles++;
+		total_microseconds = get_program_time(data);	
+		eating(data, total_microseconds);
+		miles ++;
 		
 		// Put down forks
+		total_microseconds = get_program_time(data);	
 		pthread_mutex_unlock(next_data->forks);
-		printf("%ld philosopher number %d unlocked a left fork \n",total_microseconds, data->philo_id);
 		pthread_mutex_unlock(data->forks);	
-		printf("%ld philosopher number %d unlocked a right fork add %p %d\n",total_microseconds, data->philo_id,next_data->forks,t);
 
 		// Sleeping
+		total_microseconds = get_program_time(data);	
 		pthread_mutex_lock(data->args->mu_print);
-		printf("%ld philosopher number %d is sleeping \n",total_microseconds, data->philo_id);
-		my_usleep (data->args->sleep_time  * 1000);
+		printf("%ld philosopher number %d is sleeping \n\n",total_microseconds, data->philo_id);
 		pthread_mutex_unlock(data->args->mu_print);
+		my_usleep (data->args->sleep_time  * 1000);
 		
 		// Thinking
+		total_microseconds = get_program_time(data);	
 		pthread_mutex_lock(data->args->mu_print);
-		printf("%ld philosopher number %d is thinking \n",total_microseconds, data->philo_id);
+		printf("%ld philosopher number %d is thinking \n\n",total_microseconds, data->philo_id);
 		pthread_mutex_unlock(data->args->mu_print);
 		
 		// Check termination conditions
+		total_microseconds = get_program_time(data);	
 		if (total_microseconds >= data->args->eat_time || ( data->args->mails_nbr > 0 && miles >= data->args->mails_nbr))
 			break;
 		if ((data->args->mails_nbr > 0 && total_microseconds >= data->args->die_time) || data->args->die_time <= data->args->eat_time)
 		{
-			
+			total_microseconds = get_program_time(data);	
 			pthread_mutex_lock(data->args->mu_print);
-			printf("%ld philosopher number %d is died\n", total_microseconds, data->philo_id);
+			printf("%ld philosopher number %d is died\n\n", total_microseconds, data->philo_id);
 			pthread_mutex_unlock(data->args->mu_print);
 			break ;
 		}
@@ -183,7 +197,7 @@ void start_phlip(t_data **data, int condition)
 void	create_philosophers(t_data **data)
 {
 	start_phlip(data, 1);
-	my_usleep(200 * 1000);
+	my_usleep(2 * 1000);
 	start_phlip(data, 0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: khadija-mahdi <khadija-mahdi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/24 04:16:41 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/24 17:13:56 by khadija-mah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_arguments	*init_arguments(char **argv, int argc)
 	arguments->start_time = get_timestamp_in_ms();
 	arguments->mu_print = malloc(sizeof(pthread_mutex_t));
 	int j = pthread_mutex_init(arguments->mu_print, NULL);
-	printf("ptf : %d\n", j);
 	return (arguments);
 }
 
