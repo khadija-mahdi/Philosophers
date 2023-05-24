@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/16 03:02:56 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/24 04:16:41 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ t_arguments	*init_arguments(char **argv, int argc)
 	arguments->sleep_time = ft_atoi(argv[4]);
 	if (argc == 6)
 		arguments->mails_nbr = ft_atoi(argv[5]);
+	arguments->start_time = get_timestamp_in_ms();
+	arguments->mu_print = malloc(sizeof(pthread_mutex_t));
+	int j = pthread_mutex_init(arguments->mu_print, NULL);
+	printf("ptf : %d\n", j);
 	return (arguments);
 }
 
@@ -38,10 +42,11 @@ t_data	**init_data(char **argv, int argc)
 	while( i < arguments->philo_nbr)
 	{
 		data[i] = malloc(sizeof(t_data));
-		data[i]->args = init_arguments(argv, argc);
+		data[i]->args = arguments;
 		data[i]->forks = malloc(sizeof(pthread_mutex_t));
 		data[i]->philosophers = malloc(sizeof(pthread_t));
 		data[i]->philo_id = i + 1;
+		
 		i++;
 	}
 	return (data);
