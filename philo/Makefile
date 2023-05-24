@@ -5,6 +5,7 @@ SRC= main.c\
 	utils.c\
 	init.c\
 	philo_utils/libft_utils.c\
+	action.c\
 
 
 OBJ_DIR = objects

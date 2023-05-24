@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:53:07 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/16 03:01:30 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/24 23:34:38 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,22 @@ void	check_arguments(char **argv, int argc)
 		printf("Invalid argument: Expected [5] or [6], received [%d]\n", argc);
 		exit (0);
 	}
+}
+
+void died(t_data *data)
+{
+	long total_microseconds;
+
+	total_microseconds = get_program_time(data);
+	
+	pthread_mutex_lock(data->args->mu_print);
+	printf("%ld philosopher number %d is died\n\n", total_microseconds, data->philo_id);
+	pthread_mutex_unlock(data->args->mu_print);
+}
+
+void put_dwon_forks(t_data *data, t_data *next_data)
+{
+	pthread_mutex_unlock(next_data->forks);
+	pthread_mutex_unlock(data->forks);	
+
 }

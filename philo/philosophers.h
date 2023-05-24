@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:50 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/24 04:17:21 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/24 23:35:32 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ typedef struct s_data
 
 }	t_data;
 
-typedef struct philos{
-	t_data **my_philos;
-	int curr_philo;
-} t_philos;
+typedef struct m_philos
+{
+	t_data	**my_philos;
+	int		curr_philo;
+}		t_philos;
 
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
@@ -57,6 +58,16 @@ void			check_arguments(char **argv, int argc);
 t_arguments		*init_arguments(char **argv, int argc);
 t_data			**init_data(char **argv, int argc);
 void			*philo_created(void *arg);
-long get_timestamp_in_ms() ;
+long			get_timestamp_in_ms(void);
+long			get_program_time(t_data *data);
+void			my_usleep(int time);
+void			left_forks(t_data *data);
+void			right_fork(t_data *data, t_data *next_data);
+void			eating(t_data *data);
+void			sleeping(t_data *data);
+void			died(t_data *data);
+void			thinking(t_data *data);
+void			put_dwon_forks(t_data *data, t_data *next_data);
+int				get_id_value(t_data *data, t_philos	*philos);
 
 #endif

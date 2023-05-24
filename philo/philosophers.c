@@ -6,71 +6,39 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:55:28 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/16 03:58:39 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/24 23:25:27 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-#include <pthread.h>
+long    get_timestamp_in_ms(void)
+{
+    struct timeval  tv;
 
-#define N 5   // Number of philosophers
-
-pthread_mutex_t forks[N];  // Mutex locks for each fork
-
-void get_forks(int i) {
-    // Philosopher i picks up the forks with indices i and (i+1)%N
-    pthread_mutex_lock(&forks[i]);
-    pthread_mutex_lock(&forks[(i+1)%N]);
+    gettimeofday(&tv, NULL);
+    return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void put_forks(int i) {
-    // Philosopher i puts down the forks with indices i and (i+1)%N
-    pthread_mutex_unlock(&forks[i]);
-    pthread_mutex_unlock(&forks[(i+1)%N]);
+long    get_program_time(t_data *data)
+{
+	long    total_microseconds;
+	long    microseconds;
+
+	microseconds = get_timestamp_in_ms();
+	total_microseconds = microseconds - data->args->start_time;
+	return (total_microseconds);
 }
 
-void* philosopher(void* arg) {
-    int i = *(int*) arg;
-    while (1) {
-        // Philosopher i is thinking
-        // ...
+void    my_usleep(int time)
+{
+	long    r_time;
 
-        // Philosopher i wants to eat
-        get_forks(i);
-
-        // Philosopher i is eating
-        // ...
-
-        // Philosopher i has finished eating
-        put_forks(i);
-    }
+	while (1)
+	{
+		usleep(time);
+		r_time = get_timestamp_in_ms();
+		if (r_time >= time)
+			break ;
+	}
 }
-
-// int main() {
-//     int i;
-//     pthread_t threads[N];
-
-//     // Initialize mutex locks for each fork
-//     for (i = 0; i < N; i++) {
-//         pthread_mutex_init(&forks[i], NULL);
-//     }
-
-//     // Create threads for each philosopher
-//     for (i = 0; i < N; i++) {
-//         pthread_create(&threads[i], NULL, philosopher, &i);
-//     }
-
-//     // Wait for threads to finish
-//     for (i = 0; i < N; i++) {
-//         pthread_join(threads[i], NULL);
-//     }
-
-//     // Destroy mutex locks for each fork
-//     for (i = 0; i < N; i++) {
-//         pthread_mutex_destroy(&forks[i]);
-//     }
-
-//     return 0;
-// }
-

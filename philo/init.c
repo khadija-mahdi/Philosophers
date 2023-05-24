@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khadija-mahdi <khadija-mahdi@student.42    +#+  +:+       +#+        */
+/*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/24 17:13:56 by khadija-mah      ###   ########.fr       */
+/*   Updated: 2023/05/24 23:35:33 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,15 @@ t_data	**init_data(char **argv, int argc)
 		i++;
 	}
 	return (data);
+}
+
+int get_id_value(t_data *data, t_philos	*philos)
+{
+	int id;
+
+	if (philos->curr_philo + 1  ==  data->args->philo_nbr)
+		id = 0;
+	else
+		id = philos->curr_philo + 1;
+	return (id);
 }
