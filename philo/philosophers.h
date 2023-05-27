@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:50 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/24 23:35:32 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/27 06:57:25 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 typedef struct s_arguments
 {
+	int		die_cheker;
 	int		philo_nbr;
 	int		die_time;
 	int		eat_time;
@@ -31,6 +32,7 @@ typedef struct s_arguments
 	int		forks;
 	long				start_time;
 	pthread_mutex_t		*mu_print;
+	int					miles;
 }	t_arguments;
 
 typedef struct s_data

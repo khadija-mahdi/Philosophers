@@ -6,11 +6,9 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:29:31 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/23 03:23:34 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/26 22:24:07 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "philosophers.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,7 +34,8 @@ typedef struct {
     int num_times_each_philosopher_must_eat;
 } DiningTable;
 
-int get_timestamp_in_ms() {
+int get_timestamp_in_ms() 
+{
     struct timeval tv;
     gettimeofday(&tv, NULL);
     return (tv.tv_sec * 1000 + tv.tv_usec / 1000);

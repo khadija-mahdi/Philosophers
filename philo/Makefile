@@ -26,7 +26,7 @@ $(OBJ_DIR)/%.o: %.c
 	@$(CC) ${CFLAGS} -c $< -o $@
 #-fsanitize=address -g3
 $(NAME): $(OBJ) 
-	@$(CC) $(CFLAGS)  $(OBJ)  -o $(NAME)
+	@$(CC) $(CFLAGS)  $(OBJ)  -o  $(NAME)
 	@echo "COMPILING MY PROGRAM ...\n"
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:39 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/24 23:32:59 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/27 05:41:48 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	eating(t_data *data)
 
 	total_microseconds = get_program_time(data);
 	pthread_mutex_lock(data->args->mu_print);
-	printf("%ld philosopher number %d is eting\n\n",total_microseconds, data->philo_id);
+	printf("%ld philosopher number %d is eating\n\n",total_microseconds, data->philo_id);
 	pthread_mutex_unlock(data->args->mu_print);
 	my_usleep(data->args->eat_time * 1000);
 }
