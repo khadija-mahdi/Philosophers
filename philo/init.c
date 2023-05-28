@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: khadija-mahdi <khadija-mahdi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/28 02:20:52 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/28 17:01:35 by khadija-mah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_data	**init_data(char **argv, int argc)
 		data[i]->philosophers = malloc(sizeof(pthread_t));
 		data[i]->philo_id = i + 1;
 		data[i]->miles = 0;
-		data[i]->die_cheker = 0;
+		// data[i]->die_cheker = 0;
 		
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: khadija-mahdi <khadija-mahdi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:58 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/28 03:20:09 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/28 17:02:38 by khadija-mah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	*philo_created(void *arg)
 		left_forks(data);
 		right_fork(data, next_data);
 		data->die_cheker = get_program_time(data);
+		pthread_mutex_lock(data->args->mu_print);
+		printf("last eat : %ld philosopher  : %d  \n\n",data->die_cheker, data->philo_id);
+		pthread_mutex_unlock(data->args->mu_print);
 		eating(data);
 		put_dwon_forks(data, next_data);
 		sleeping(data);
@@ -92,19 +95,13 @@ void	create_philosophers(t_data **data)
 	while (1)
 	{
 		time = get_program_time(data[0]);
-		printf(" time : %ld eaten = %ld miles = %d\n" ,time, data[i]->die_cheker, data[i]->miles);
-		// if (((data[i]->die_cheker + data[i]->args->eat_time) ) >= data[i]->args->die_time && data[i]->die_cheker <= data[i]->args->die_time)
-		// {
-		// 	printf("die_checker = %ld , eat_time %d, die_time %d\n",data[i]->die_cheker , data[0]->args->eat_time , data[0]->args->die_time );
-		// 	died(data[i]);
-		// }
-		if (data[i]->miles == 0 && time == data[i]->args->die_time)
+		// printf("time %ld , chker  %ld , died cond : == %ld\n", time, data[i]->die_cheker, (time - data[i]->die_cheker));
+		if ((time - data[i]->die_cheker) > data[i]->args->die_time)
 		{
 			died(data[i]);
-
 		}
-		// if (data[i]->args->mails_nbr && data[i]->miles && data[i]->miles == data[0]->args->mails_nbr)
-		// 	break;
+		if (data[i]->args->mails_nbr && data[i]->miles && data[i]->miles == data[0]->args->mails_nbr)
+			break;
 		i++;
 		if(i >= philo_nbr)
 			i = 0;
