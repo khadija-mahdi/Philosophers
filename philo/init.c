@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/27 07:04:10 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/28 02:20:52 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ t_arguments	*init_arguments(char **argv, int argc)
 	arguments->start_time = get_timestamp_in_ms();
 	arguments->mu_print = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(arguments->mu_print, NULL);
-	arguments->die_cheker = 0;
-	arguments->miles = 0;
 	return (arguments);
 }
 
@@ -51,6 +49,8 @@ t_data	**init_data(char **argv, int argc)
 		data[i]->forks = malloc(sizeof(pthread_mutex_t));
 		data[i]->philosophers = malloc(sizeof(pthread_t));
 		data[i]->philo_id = i + 1;
+		data[i]->miles = 0;
+		data[i]->die_cheker = 0;
 		
 		i++;
 	}
