@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/29 20:22:47 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/29 22:42:28 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ t_arguments	*init_arguments(char **argv, int argc)
 	arguments->sleep_time = ft_atoi(argv[4]);
 	if (argc == 6)
 	{
-		arguments->mails_nbr = ft_atoi(argv[5]);
-		if (!ft_strcmp(argv[5], "0"))
-			exit_msg(" ta kifash 0 mile ya rebQ ! \n", 0);
+		arguments->meals_nbr = ft_atoi(argv[5]);
+		if (arguments->meals_nbr <= 0)
+			exit_msg(" ta kifash 0 meal ya rebQ ! \n", 0);
 	}
 	arguments->start_time = get_timestamp_in_ms();
 	arguments->mu_print = malloc(sizeof(pthread_mutex_t));
@@ -50,7 +50,7 @@ t_data	**init_data(char **argv, int argc)
 		data[i]->forks = malloc(sizeof(pthread_mutex_t));
 		data[i]->philosophers = malloc(sizeof(pthread_t));
 		data[i]->philo_id = i + 1;
-		data[i]->miles = 0;
+		data[i]->meals = 0;
 		i++;
 	}
 	return (data);

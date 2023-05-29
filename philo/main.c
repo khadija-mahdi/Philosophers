@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:58 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/29 22:11:57 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/30 00:52:07 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	*philo_created(void *arg)
 		put_dwon_forks(data, next_data);
 		sleeping(data);
 		thinking(data);
-		if (data->args->mails_nbr && data->miles
-			&& data->miles == data->args->mails_nbr)
+		if (data->args->meals_nbr && data->meals
+			&& data->meals == data->args->meals_nbr)
 			break ;
 	}
 	return (NULL);
@@ -93,10 +93,10 @@ void	create_philosophers(t_data **data)
 	while (1)
 	{
 		time = get_program_time(data[0]);
-		if (data[i]->miles == 0 && time == data[i]->args->die_time)
+		if ((time == data[0]->args->die_time) && (data[i]->meals == 0))
 			died(data[i]);
-		if (data[i]->args->mails_nbr && data[i]->miles
-			&& data[i]->miles == data[0]->args->mails_nbr)
+		if (data[i]->args->meals_nbr && data[i]->meals
+			&& data[i]->meals == data[0]->args->meals_nbr)
 			break ;
 		i++;
 		if (i >= philo_nbr)

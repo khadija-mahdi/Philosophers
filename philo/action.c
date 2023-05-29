@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:39 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/29 20:32:29 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/29 22:41:05 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	eating(t_data *data)
 		" eating\n\n", total_microseconds, data->philo_id);
 	pthread_mutex_unlock(data->args->mu_print);
 	my_usleep(data->args->eat_time * 1000);
-	data->miles++;
+	data->meals++;
 }
 
 void	sleeping(t_data *data)

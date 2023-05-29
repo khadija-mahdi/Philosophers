@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:53:07 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/29 20:32:15 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/30 00:17:38 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	check_plus(char **argv)
 
 void	check_arguments(char **argv, int argc)
 {
-	int	i;
-
 	if (argc == 5 || argc == 6)
 	{
 		if (!ft_strcmp(argv[1], "0"))
@@ -74,6 +72,6 @@ void	died(t_data *data)
 
 void	put_dwon_forks(t_data *data, t_data *next_data)
 {
-	pthread_mutex_unlock(next_data->forks);
 	pthread_mutex_unlock(data->forks);
+	pthread_mutex_unlock(next_data->forks);
 }
