@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khadija-mahdi <khadija-mahdi@student.42    +#+  +:+       +#+        */
+/*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/28 17:01:35 by khadija-mah      ###   ########.fr       */
+/*   Updated: 2023/05/29 20:22:47 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ t_data	**init_data(char **argv, int argc)
 {
 	t_arguments		*arguments;
 	t_data			**data;
+	int				i;
 
+	i = 0;
 	arguments = init_arguments(argv, argc);
 	data = malloc(sizeof(t_data *) * arguments->philo_nbr);
-	int i = 0;
-	while( i < arguments->philo_nbr)
+	while (i < arguments->philo_nbr)
 	{
 		data[i] = malloc(sizeof(t_data));
 		data[i]->args = arguments;
@@ -50,18 +51,16 @@ t_data	**init_data(char **argv, int argc)
 		data[i]->philosophers = malloc(sizeof(pthread_t));
 		data[i]->philo_id = i + 1;
 		data[i]->miles = 0;
-		// data[i]->die_cheker = 0;
-		
 		i++;
 	}
 	return (data);
 }
 
-int get_id_value(t_data *data, t_philos	*philos)
+int	get_id_value(t_data *data, t_philos	*philos)
 {
-	int id;
+	int	id;
 
-	if (philos->curr_philo + 1  ==  data->args->philo_nbr)
+	if (philos->curr_philo + 1 == data->args->philo_nbr)
 		id = 0;
 	else
 		id = philos->curr_philo + 1;

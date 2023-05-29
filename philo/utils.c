@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khadija-mahdi <khadija-mahdi@student.42    +#+  +:+       +#+        */
+/*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:53:07 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/28 17:06:57 by khadija-mah      ###   ########.fr       */
+/*   Updated: 2023/05/29 20:32:15 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,19 @@ void	check_arguments(char **argv, int argc)
 	}
 }
 
-void died(t_data *data)
+void	died(t_data *data)
 {
-	long total_microseconds;
+	long	total_microseconds;
 
 	total_microseconds = get_program_time(data);
-	
 	pthread_mutex_lock(data->args->mu_print);
-	printf("%ld philosopher number %d is died\n\n", total_microseconds, data->philo_id);
+	printf("\n%ld philosopher number %d is"
+		" died\n\n", total_microseconds, data->philo_id);
 	exit (0);
 }
 
-void put_dwon_forks(t_data *data, t_data *next_data)
+void	put_dwon_forks(t_data *data, t_data *next_data)
 {
 	pthread_mutex_unlock(next_data->forks);
-	pthread_mutex_unlock(data->forks);	
-
+	pthread_mutex_unlock(data->forks);
 }

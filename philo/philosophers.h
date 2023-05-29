@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:50 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/28 01:43:53 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/29 20:26:23 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,14 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-
 typedef struct s_arguments
 {
-	int		philo_nbr;
-	int		die_time;
-	int		eat_time;
-	int		sleep_time;
-	int		mails_nbr;
-	int		forks;
+	int					philo_nbr;
+	int					die_time;
+	int					eat_time;
+	int					sleep_time;
+	int					mails_nbr;
+	int					forks;
 	long				start_time;
 	pthread_mutex_t		*mu_print;
 }	t_arguments;
@@ -40,7 +39,6 @@ typedef struct s_data
 	int					philo_id;
 	struct s_arguments	*args;
 	int					miles;
-	long					die_cheker;
 
 }	t_data;
 
@@ -71,5 +69,6 @@ void			died(t_data *data);
 void			thinking(t_data *data);
 void			put_dwon_forks(t_data *data, t_data *next_data);
 int				get_id_value(t_data *data, t_philos	*philos);
+void			pick_up_forks(t_data *data, t_data *next_data, int left);
 
 #endif

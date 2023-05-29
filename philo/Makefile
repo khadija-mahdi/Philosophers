@@ -24,9 +24,9 @@ all: $(NAME)
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@$(CC) ${CFLAGS} -c $< -o $@
-#-fsanitize=address -g3
+#-fsanitize=thread 
 $(NAME): $(OBJ) 
-	@$(CC) $(CFLAGS)  $(OBJ) -g -fsanitize=thread -o  $(NAME)
+	@$(CC) $(CFLAGS)  $(OBJ) -g -o  $(NAME)
 	@echo "COMPILING MY PROGRAM ...\n"
 
 clean:
