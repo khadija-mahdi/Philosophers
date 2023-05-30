@@ -1,6 +1,10 @@
 NAME= philo_bonus
 
-SRC= main.c
+SRC= main.c\
+	utils.c\
+	libft_utils.c\
+
+
 
 OBJ= $(SRC:.c=.o)
 

@@ -6,13 +6,16 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:07:21 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/04/29 16:26:36 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/30 05:23:08 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	printf("philo bonus :)\n\n");
+	t_arguments	*arguments;
+
+	arguments = init_arguments(argv, argc);
+	check_invalid_argument(arguments);
 }
