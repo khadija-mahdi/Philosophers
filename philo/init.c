@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/30 04:26:04 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/30 05:26:42 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_plus(char **argv)
 			exit_msg("ERROR : Invalid argument\n", 1);
 		if (argv[i][0] == '+')
 		{
-			if (!argv[i][1] || argv[i][1] == ' ' || argv[i][1] == '0')
+			if (!argv[i][1] || argv[i][1] == ' ')
 				exit_msg("ERROR : Invalid argument\n", 1);
 		}
 		else if (!ft_isdigit(argv[i][0]))
@@ -49,6 +49,18 @@ void	check_arguments(char **argv, int argc)
 		printf("Invalid argument: Expected [5] or [6], received [%d]\n", argc);
 		exit (0);
 	}
+}
+
+void	check_invalid_argument(t_arguments	*arguments)
+{
+	if (arguments->philo_nbr <= 0)
+		exit_msg("ERROR : Invalid argument\n", 1);
+	if (arguments->die_time <= 0)
+		exit_msg("ERROR : Invalid argument\n", 1);
+	if (arguments->eat_time <= 0)
+		exit_msg("ERROR : Invalid argument\n", 1);
+	if (arguments->sleep_time <= 0)
+		exit_msg("ERROR : Invalid argument\n", 1);
 }
 
 t_arguments	*init_arguments(char **argv, int argc)
@@ -77,6 +89,7 @@ t_data	**init_data(char **argv, int argc)
 
 	i = 0;
 	arguments = init_arguments(argv, argc);
+	check_invalid_argument(arguments);
 	data = malloc(sizeof(t_data *) * arguments->philo_nbr);
 	while (i < arguments->philo_nbr)
 	{
