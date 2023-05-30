@@ -6,13 +6,24 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:55:28 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/29 20:19:57 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/30 04:17:32 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long	get_timestamp_in_ms(void)
+int	get_id_value(t_data *data, t_philos	*philos)
+{
+	int	id;
+
+	if (philos->curr_philo + 1 == data->args->philo_nbr)
+		id = 0;
+	else
+		id = philos->curr_philo + 1;
+	return (id);
+}
+
+long	get_time_in_ms(void)
 {
 	struct timeval	tv;
 
@@ -25,20 +36,28 @@ long	get_program_time(t_data *data)
 	long	total_microseconds;
 	long	microseconds;
 
-	microseconds = get_timestamp_in_ms();
+	microseconds = get_time_in_ms();
 	total_microseconds = microseconds - data->args->start_time;
 	return (total_microseconds);
 }
 
-void	my_usleep(int time)
+void	put_dwon_forks(t_data *data, t_data *next_data)
 {
-	long	r_time;
+	pthread_mutex_unlock(data->forks);
+	pthread_mutex_unlock(next_data->forks);
+}
 
-	while (1)
+void	create_forks(t_data **data)
+{
+	int	i;
+	int	philo_nbr;
+
+	i = 0;
+	philo_nbr = data[0]->args->philo_nbr;
+	while (i < philo_nbr)
 	{
-		usleep(time);
-		r_time = get_timestamp_in_ms();
-		if (r_time >= time)
-			break ;
+		if (pthread_mutex_init(data[i]->forks, NULL))
+			return ;
+		i++;
 	}
 }

@@ -6,11 +6,11 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:01:05 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/27 07:04:02 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/30 04:05:28 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philosophers.h"
+#include "philosophers.h"
 
 static int	count(const char *str, int sym)
 {

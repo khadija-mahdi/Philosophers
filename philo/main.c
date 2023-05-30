@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:58 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/30 00:52:07 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/30 04:04:34 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	*philo_created(void *arg)
 	{
 		pick_up_forks(data, next_data, 0);
 		pick_up_forks(data, next_data, 1);
+		data->last_eat = get_program_time(data);
 		eating(data);
 		put_dwon_forks(data, next_data);
 		sleeping(data);
@@ -38,21 +39,6 @@ void	*philo_created(void *arg)
 			break ;
 	}
 	return (NULL);
-}
-
-void	create_forks(t_data **data)
-{
-	int	i;
-	int	philo_nbr;
-
-	i = 0;
-	philo_nbr = data[0]->args->philo_nbr;
-	while (i < philo_nbr)
-	{
-		if (pthread_mutex_init(data[i]->forks, NULL))
-			return ;
-		i++;
-	}
 }
 
 void	start_phlip(t_data **data, int condition)
@@ -79,22 +65,34 @@ void	start_phlip(t_data **data, int condition)
 	return ;
 }
 
+void	die_conditions(t_data **data, int time, int i)
+{
+	if ((data[0]->args->die_time) < 10)
+	{
+		if (((time >= data[0]->args->die_time) && (data[i]->meals == 0)))
+			died(data[i]);
+	}
+	if (((time == data[0]->args->die_time) && (data[i]->meals == 0)))
+		died(data[i]);
+}
+
 void	create_philosophers(t_data **data)
 {
-	int			i;
-	long		time;
-	int			philo_nbr;
+	int	i;
+	int	time;
+	int	philo_nbr;
 
+	i = 0;
+	if (data[0]->args->die_time == 0)
+		died(data[0]);
 	start_phlip(data, 2);
 	my_usleep(2 * 1000);
 	start_phlip(data, 0);
 	philo_nbr = data[0]->args->philo_nbr;
-	i = 0;
 	while (1)
 	{
-		time = get_program_time(data[0]);
-		if ((time == data[0]->args->die_time) && (data[i]->meals == 0))
-			died(data[i]);
+		time = (int)get_program_time(data[0]);
+		die_conditions(data, time, i);
 		if (data[i]->args->meals_nbr && data[i]->meals
 			&& data[i]->meals == data[0]->args->meals_nbr)
 			break ;

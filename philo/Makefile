@@ -4,7 +4,7 @@ SRC= main.c\
 	philosophers.c\
 	utils.c\
 	init.c\
-	philo_utils/libft_utils.c\
+	libft_utils.c\
 	action.c\
 
 

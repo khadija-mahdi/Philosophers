@@ -6,11 +6,50 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/29 22:42:28 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/30 04:26:04 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	check_plus(char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (argv && argv[i])
+	{
+		if (!ft_strcmp(argv[i], "0"))
+			exit_msg("ERROR : Invalid argument\n", 1);
+		if (argv[i][0] == '+')
+		{
+			if (!argv[i][1] || argv[i][1] == ' ' || argv[i][1] == '0')
+				exit_msg("ERROR : Invalid argument\n", 1);
+		}
+		else if (!ft_isdigit(argv[i][0]))
+			exit_msg("ERROR : Invalid argument\n", 1);
+		j = 1;
+		while (argv[i][j])
+		{
+			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
+				exit_msg("ERROR : Invalid argument\n", 1);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	check_arguments(char **argv, int argc)
+{
+	if (argc == 5 || argc == 6)
+		check_plus(argv);
+	else
+	{
+		printf("Invalid argument: Expected [5] or [6], received [%d]\n", argc);
+		exit (0);
+	}
+}
 
 t_arguments	*init_arguments(char **argv, int argc)
 {
@@ -23,12 +62,8 @@ t_arguments	*init_arguments(char **argv, int argc)
 	arguments->eat_time = ft_atoi(argv[3]);
 	arguments->sleep_time = ft_atoi(argv[4]);
 	if (argc == 6)
-	{
 		arguments->meals_nbr = ft_atoi(argv[5]);
-		if (arguments->meals_nbr <= 0)
-			exit_msg(" ta kifash 0 meal ya rebQ ! \n", 0);
-	}
-	arguments->start_time = get_timestamp_in_ms();
+	arguments->start_time = get_time_in_ms();
 	arguments->mu_print = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(arguments->mu_print, NULL);
 	return (arguments);
@@ -51,18 +86,8 @@ t_data	**init_data(char **argv, int argc)
 		data[i]->philosophers = malloc(sizeof(pthread_t));
 		data[i]->philo_id = i + 1;
 		data[i]->meals = 0;
+		data[i]->last_eat = 0;
 		i++;
 	}
 	return (data);
-}
-
-int	get_id_value(t_data *data, t_philos	*philos)
-{
-	int	id;
-
-	if (philos->curr_philo + 1 == data->args->philo_nbr)
-		id = 0;
-	else
-		id = philos->curr_philo + 1;
-	return (id);
 }
