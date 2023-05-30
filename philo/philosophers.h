@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:50 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/30 04:06:50 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/30 05:45:59 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int				is_string_digits(char *str);
 void			exit_msg(char *msg, int i);
 size_t			ft_strlen(const char *c);
 int				ft_strcmp(char *s1, char *s2);
-void			check_arguments(char **argv, int argc);
+void			check_arguments(char **argv);
 t_arguments		*init_arguments(char **argv, int argc);
 t_data			**init_data(char **argv, int argc);
 void			*philo_created(void *arg);

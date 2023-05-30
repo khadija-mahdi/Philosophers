@@ -6,13 +6,13 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/30 05:26:42 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/30 05:48:38 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	check_plus(char **argv)
+void	check_arguments(char **argv)
 {
 	int	i;
 	int	j;
@@ -40,17 +40,6 @@ void	check_plus(char **argv)
 	}
 }
 
-void	check_arguments(char **argv, int argc)
-{
-	if (argc == 5 || argc == 6)
-		check_plus(argv);
-	else
-	{
-		printf("Invalid argument: Expected [5] or [6], received [%d]\n", argc);
-		exit (0);
-	}
-}
-
 void	check_invalid_argument(t_arguments	*arguments)
 {
 	if (arguments->philo_nbr <= 0)
@@ -67,7 +56,13 @@ t_arguments	*init_arguments(char **argv, int argc)
 {
 	t_arguments	*arguments;
 
-	check_arguments(argv, argc);
+	if (argc == 5 || argc == 6)
+		check_arguments(argv);
+	else
+	{
+		printf("Invalid argument: Expected [5] or [6], received [%d]\n", argc);
+		exit (1);
+	}
 	arguments = malloc(sizeof(t_arguments));
 	arguments->philo_nbr = ft_atoi(argv[1]);
 	arguments->die_time = ft_atoi(argv[2]);
@@ -103,4 +98,17 @@ t_data	**init_data(char **argv, int argc)
 		i++;
 	}
 	return (data);
+}
+
+void	my_usleep(int time)
+{
+	long	r_time;
+
+	while (1)
+	{
+		usleep(time);
+		r_time = get_time_in_ms();
+		if (r_time >= time)
+			break ;
+	}
 }
