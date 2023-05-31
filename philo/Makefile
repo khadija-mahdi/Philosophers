@@ -24,7 +24,7 @@ $(OBJ_DIR)/%.o: %.c
 	$(CC) ${CFLAGS} -c $< -o $@
 
 $(NAME): $(OBJ)  
-	$(CC) $(CFLAGS) $(OBJ) -g  -fsanitize=thread -o  $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -g -o  $(NAME)
 
 clean:
 	$(RM) $(OBJ)

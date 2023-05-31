@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:58 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/30 04:04:34 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/31 21:47:06 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	create_philosophers(t_data **data)
 	if (data[0]->args->die_time == 0)
 		died(data[0]);
 	start_phlip(data, 2);
-	my_usleep(2 * 1000);
+	usleep(2 * 1000);
 	start_phlip(data, 0);
 	philo_nbr = data[0]->args->philo_nbr;
 	while (1)

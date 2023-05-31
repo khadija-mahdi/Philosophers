@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/30 05:48:38 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/31 21:45:45 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ t_arguments	*init_arguments(char **argv, int argc)
 		exit (1);
 	}
 	arguments = malloc(sizeof(t_arguments));
+	arguments->start_time = get_time_in_ms();
 	arguments->philo_nbr = ft_atoi(argv[1]);
 	arguments->die_time = ft_atoi(argv[2]);
 	arguments->eat_time = ft_atoi(argv[3]);
 	arguments->sleep_time = ft_atoi(argv[4]);
 	if (argc == 6)
 		arguments->meals_nbr = ft_atoi(argv[5]);
-	arguments->start_time = get_time_in_ms();
 	arguments->mu_print = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(arguments->mu_print, NULL);
 	return (arguments);
@@ -100,15 +100,16 @@ t_data	**init_data(char **argv, int argc)
 	return (data);
 }
 
-void	my_usleep(int time)
-{
-	long	r_time;
-
-	while (1)
-	{
-		usleep(time);
-		r_time = get_time_in_ms();
-		if (r_time >= time)
-			break ;
-	}
-}
+// void	usleep(int time, t_data *data)
+// {
+// 	// long	r_time;
+// 	(void)	data;
+// 	// while (1)
+// 	// {
+// 		usleep(time);
+// 		// r_time = get_program_time(data);
+// 		// printf("r_time : %ld time %d\n", r_time, time);
+// 		// if ((r_time * 1000 ) >= time)
+// 	// 		break ;
+// 	// }
+// }

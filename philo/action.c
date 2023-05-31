@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:39 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/30 05:53:13 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/31 21:47:20 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	eating(t_data *data)
 	printf("\n%ld philosopher number %d is"
 		" eating\n\n", microseconds, data->philo_id);
 	pthread_mutex_unlock(data->args->mu_print);
-	my_usleep(data->args->eat_time * 1000);
+	usleep(data->args->eat_time * 1000);
 	data->meals++;
 }
 
@@ -49,7 +49,7 @@ void	sleeping(t_data *data)
 	printf("\n%ld philosopher number %d is"
 		" sleeping \n\n", microseconds, data->philo_id);
 	pthread_mutex_unlock(data->args->mu_print);
-	my_usleep(data->args->sleep_time * 1000);
+	usleep(data->args->sleep_time * 1000);
 }
 
 void	thinking(t_data *data)
