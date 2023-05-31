@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:58 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/31 21:47:06 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/05/31 22:49:12 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,8 @@ void	start_phlip(t_data **data, int condition)
 
 void	die_conditions(t_data **data, int time, int i)
 {
-	if ((data[0]->args->die_time) < 10)
-	{
-		if (((time >= data[0]->args->die_time) && (data[i]->meals == 0)))
-			died(data[i]);
-	}
-	if (((time == data[0]->args->die_time) && (data[i]->meals == 0)))
+	if ((time - data[i]->last_eat) >= data[i]->args->die_time
+		&& time <= (data[i]->args->die_time + 10))
 		died(data[i]);
 }
 
@@ -83,10 +79,8 @@ void	create_philosophers(t_data **data)
 	int	philo_nbr;
 
 	i = 0;
-	if (data[0]->args->die_time == 0)
-		died(data[0]);
 	start_phlip(data, 2);
-	usleep(2 * 1000);
+	my_usleep(2 * 1000, data[0]);
 	start_phlip(data, 0);
 	philo_nbr = data[0]->args->philo_nbr;
 	while (1)
