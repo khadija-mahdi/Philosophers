@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:50 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/31 22:47:55 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/01 01:47:16 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,11 @@ typedef struct m_philos
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
 int				is_string_digits(char *str);
-void			exit_msg(char *msg, int i);
+int				ret_msg(char *msg);
 size_t			ft_strlen(const char *c);
 int				ft_strcmp(char *s1, char *s2);
-void			check_arguments(char **argv);
 t_arguments		*init_arguments(char **argv, int argc);
-t_data			**init_data(char **argv, int argc);
+t_data			**init_data(t_arguments	*arguments);
 void			*philo_created(void *arg);
 long			get_time_in_ms(void);
 long			get_program_time(t_data *data);
@@ -70,5 +69,7 @@ void			put_dwon_forks(t_data *data, t_data *next_data);
 int				get_id_value(t_data *data, t_philos	*philos);
 void			pick_up_forks(t_data *data, t_data *next_data, int left);
 void			create_forks(t_data **data);
+int				check_invalid_argument(t_arguments	*arguments);
+int				check_arguments(char **argv);
 
 #endif

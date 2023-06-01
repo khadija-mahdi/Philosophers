@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:58 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/31 22:49:12 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/01 02:24:17 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,25 @@ void	create_philosophers(t_data **data)
 
 int	main(int argc, char **argv)
 {
+	t_arguments		*arguments;
 	t_data			**data;
 	int				i;
 
 	i = 0;
-	data = init_data(argv, argc);
-	create_forks (data);
-	create_philosophers(data);
-	while (i < data[0]->args->philo_nbr)
-		pthread_join(*(data[i++]->philosophers), NULL);
-	i = 0;
-	while (i < data[0]->args->philo_nbr)
-		pthread_mutex_destroy(data[i++]->forks);
+	if (argc == 5 || argc == 6)
+	{
+		arguments = init_arguments(argv, argc);
+		if (check_arguments(argv) || check_invalid_argument(arguments))
+			return (1);
+		data = init_data(arguments);
+		create_forks (data);
+		create_philosophers(data);
+		while (i < data[0]->args->philo_nbr)
+			pthread_join(*(data[i++]->philosophers), NULL);
+		i = 0;
+		while (i < data[0]->args->philo_nbr)
+			pthread_mutex_destroy(data[i++]->forks);
+	}
+	else
+		printf("Invalid argument: Expected [5] or [6], received [%d]\n", argc);
 }

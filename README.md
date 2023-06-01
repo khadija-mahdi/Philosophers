@@ -35,6 +35,8 @@ README.md
 
   *There are three ways to implement concurrency in our programs:  [Process](https://github.com/khadija-mahdi/pipex/blob/master/pipex%20f3f377eedb644f1a805c6f479d7576c0/Process%205489eb2fa3234436838be5c8933e078e.md) , threads,  and multiplexing. Let’s concentrate on threads that we should use in our project .*
 
+## $***Mandarory :$***
+
 - **What is a Thread**
     
             In the simplest terms, a thread is a way for a computer program to do multiple things at the same time.
@@ -406,3 +408,216 @@ README.md
         
         > **`EINVAL`**: The **`tv`** or **`tz`** argument is NULL.
         >
+
+## $***Bonus :***$
+
+- ***What is semaphores***
+    
+    In the simplest terms, semaphores are like traffic signals for processes or threads in a computer program. They help control access to shared resources, like a printer or a file, so that multiple processes don't interfere with each other.
+    
+    Imagine a single-lane road with a traffic light. When a car wants to cross the road, it first checks the traffic light. If the light is green, the car can proceed. But if the light is red, the car has to wait until it turns green. Once the car has crossed, it signals to the traffic light that it has passed.
+    
+    Similarly, in a computer program, processes or threads need to check a semaphore before accessing a shared resource. If the semaphore allows access, they can proceed. But if the semaphore indicates that the resource is already in use, they have to wait until it becomes available. Once they're done using the resource, they signal to the semaphore that they are finished, allowing another process or thread to access it.
+    
+    So, semaphores act as control mechanisms, ensuring that processes or threads take turns using shared resources and avoid conflicts or race conditions.
+    
+    - *`**differences in handling semaphores between processes and threads?**`*
+        
+        
+        `*the handling of semaphores can differ between processes and threads. Here are some key differences:*`
+        
+        1. `*Ownership: In process-based concurrency models, such as those implemented using the fork system call, each process has its own copy of resources, including semaphores. When a process forks, the child process inherits a copy of the parent's semaphore values. Each process can operate on its own set of semaphores independently.*`
+        
+        `*On the other hand, in thread-based concurrency models, threads within the same process share the same memory space, including semaphores. Threads can access and manipulate the same set of semaphores directly, without the need for inter-process communication mechanisms.*`
+        
+        1. `*Synchronization: Processes typically use semaphores to synchronize activities across different processes. For example, a semaphore can be used to ensure that only one process accesses a shared resource at a time. Processes use functions like sem_init, sem_wait, and sem_post to initialize, wait for, and release semaphores, respectively.*`
+        
+        `*Threads, however, can use semaphores for synchronization within the same process. Threads can coordinate their activities, ensuring exclusive access to shared resources. The same functions (sem_init, sem_wait, sem_post) are used by threads to handle semaphores, but the behavior is different because they are operating within the same memory space.*`
+        
+        1. `*Resource Sharing: In process-based concurrency, processes typically need to use inter-process communication (IPC) mechanisms, such as shared memory or message passing, to share resources between different processes. Semaphores can be used as part of these IPC mechanisms to coordinate resource access.*`
+        
+        `*In thread-based concurrency, threads share the same memory space, so they can access shared resources directly. Semaphores are used to synchronize access to these shared resources, preventing race conditions and ensuring that only one thread accesses the resource at a time.*`
+        
+        <aside>
+        💡 It's important to note that the handling of semaphores and concurrency mechanisms may vary depending on the operating system and the libraries used for concurrency in C. The details provided above describe the general differences in handling semaphores between processes and threads in C, but specific implementations may have additional nuances or variations.
+        
+        </aside>
+        
+- ***What is the deferent between mutex and semaphore***
+    
+    *Mutexes and Semaphores are both synchronization mechanisms used in concurrent programming to control access to shared resources. However, they differ in several ways:*
+    
+    - *A mutex is a binary semaphore, meaning it has only two states: locked and unlocked. A semaphore, on the other hand, can have multiple values.*
+    - *A mutex is used to protect a single resource that can be accessed by only one thread at a time. A semaphore can protect multiple resources or a shared resource that can be accessed by multiple threads at the same time.*
+    - *A mutex is used to enforce mutual exclusion, meaning that only one thread can access the protected resource at a time. A semaphore can be used for various synchronization purposes, including signaling, counting, and mutual exclusion.*
+    - *A mutex can be unlocked only by the thread that locked it. A semaphore can be unlocked by any thread that holds a lock on it.*
+    - *Mutexes are generally faster and simpler to implement than semaphores because they have only two states and are used for a specific purpose. Semaphores are more versatile but can be more complex to use correctly.*
+    
+    *Overall, mutexes are a good choice when you need to protect a single resource that can be accessed by only one thread at a time, while semaphores are more appropriate for situations where you need to coordinate access to multiple resources or manage concurrent access to a shared resource.*
+    
+- ***POSIX Semaphores***
+    
+    POSIX Semaphores are a synchronization primitive used in concurrent programming to control access to shared resources. They are similar to mutexes, but are more versatile because they can have multiple values.
+    
+    To use POSIX Semaphores in a C program, you need to include the library  $**<semaphore.h>**$  and link the program with **$-lrt$**.
+    
+    The basic functions for working with semaphores are:
+    
+    - ***sem_open() :***
+        
+        ```c
+        sem_t *sem_open(const char *name, int oflag, mode_t mode,
+        		unsigned int value);
+        ```
+        
+        > **Description:**
+        > 
+        
+        > ***The sem_open()*** : function in C is used to create or open a named semaphore. It allows processes to share synchronization primitives even if they are not related by inheritance, such as in the case of forked processes.
+        > 
+        
+        > **Parameters:**
+        > 
+        
+        > *name*: The name of the semaphore. This name should start with a slash ("/") and have a maximum length defined by SEM_NAME_MAX.
+        > 
+        
+        > oflag: Flags to specify the behavior of the semaphore. It can be a combination of O_CREAT, O_EXCL, O_RDWR, and O_TRUNC. Use O_CREAT to create a new semaphore if it doesn't exist, and O_EXCL with O_CREAT to ensure the semaphore is created exclusively. O_RDWR allows both reading and writing access to the semaphore. O_TRUNC truncates the size of the semaphore if it already exists.
+        > 
+        
+        > mode: The access permissions for the semaphore, used when creating a new semaphore. It is specified using the same format as the chmod function.
+        > 
+        
+        > value: The initial value to be assigned to the semaphore. This value should be greater than or equal to zero.
+        > 
+        
+        > **Return Value:**
+        > 
+        
+        > If successful, sem_open returns a pointer to the named semaphore (of type sem_t*). This pointer can be used in subsequent semaphore operations.
+        > 
+        
+        > On error, sem_open returns SEM_FAILED (a macro defined in semaphore.h).
+        > 
+        
+        <aside>
+        💡
+        
+        </aside>
+        
+    - ***sem_close() :***
+        
+        ```c
+        int sem_close(sem_t *sem);
+        ```
+        
+        > **Description:**
+        > 
+        
+        > ***The sem_close():*** function in C is used to close a named semaphore. It releases any system resources associated with the semaphore
+        > 
+        
+        > ***Parameter:***
+        > 
+        
+        > sem: A pointer to the named semaphore (of type sem_t*) that was obtained from a previous call to sem_open.
+        > 
+        
+        > ***Return Value:***
+        > 
+        
+        > If successful, sem_close returns 0.
+        > 
+        
+        > On error, sem_close returns -1, and an error code is set in the errno variable.
+        > 
+        
+    - ***sem_post() :***
+        
+        ```c
+        int sem_post(sem_t *sem);
+        ```
+        
+        > **Description:**
+        > 
+        
+        > **The sem_post():** function in C is used to increment the value of a semaphore. It is typically used to indicate that a resource is available or to signal the completion of a task
+        > 
+        
+        > ***Parameter:***
+        > 
+        
+        > sem: *A pointer to the semaphore (of type sem_t*) on which the operation is performed. The semaphore must have been previously initialized using sem_init or obtained from a call to sem_open.*
+        > 
+        
+        > ***Return Value:***
+        > 
+        
+        > *If successful, sem_post returns 0.*
+        > 
+        
+        > *On error, sem_post returns -1, and an error code is set in the errno variable.*
+        > 
+    - ***sem_wait() :***
+        
+        ```c
+        int sem_wait(sem_t *sem);
+        ```
+        
+        > **Description:**
+        > 
+        
+        > **The sem_wait():** function in C is used to decrement the value of a semaphore. It is typically used to request access to a shared resource and to wait if the resource is currently unavailable.
+        > 
+        
+        > ***Parameter:***
+        > 
+        
+        > sem: A pointer to the semaphore (of type sem_t*) on which the operation is performed. The semaphore must have been previously initialized using sem_init or obtained from a call to sem_open.
+        > 
+        
+        > ***Return Value:***
+        > 
+        
+        > If successful, sem_wait returns 0.
+        > 
+        
+        > On error, sem_wait returns -1, and an error code is set in the errno variable.
+        > 
+    - ***sem_unlink() :***
+        
+        ```c
+        int sem_unlink(const char *name);
+        ```
+        
+        > **Description:**
+        > 
+        
+        > **The sem_unlink():** function in C is used to remove a named semaphore from the system. It allows you to unlink and delete the named semaphore so that it can no longer be accessed by other processes or threads
+        > 
+        
+        > Parameter:
+        > 
+        
+        > name: The name of the semaphore to be unlinked. This should be the same name that was used when creating or opening the semaphore.
+        > 
+        
+        > Return Value:
+        > 
+        
+        > If successful, sem_unlink returns 0.
+        > 
+        
+        > On error, sem_unlink returns -1, and an error code is set in the errno variable.
+        > 
+    
+    - ***how the operating system manages semaphores and CPU scheduling :***
+        
+        
+        *The POSIX Semaphores are managed by the operating system in a similar way as regular semaphores. The operating system keeps track of the current value of each semaphore and the processes or threads that are waiting on it. When a semaphore is posted using the sem_post() function, the operating system increments its value and wakes up one of the waiting processes or threads, allowing it to proceed. When a semaphore is waited on using the sem_wait() function, the operating system decrements its value. If the value is zero, the process or thread is blocked until the semaphore is posted.*
+        
+        *In addition to the basic semaphore functions, the POSIX Semaphores API also includes functions for creating and opening named semaphores using the sem_open() function, closing named semaphores using the sem_close() function, and unlinking named semaphores using the sem_unlink() function.*
+        
+        *CPU scheduling with POSIX Semaphores is similar to regular CPU scheduling. The scheduler maintains a list of all the processes or threads that are ready to run, and selects the next one to run based on the scheduling algorithm. Once a process or thread has used up its time slice or has blocked on a semaphore or I/O operation, the scheduler selects the next process or thread to run.*
+        
+        *Overall, the operating system manages POSIX Semaphores and CPU scheduling in a similar way as regular semaphores and CPU scheduling, but with additional functions for creating and managing named semaphores.*
