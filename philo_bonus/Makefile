@@ -14,7 +14,7 @@ OBJ= $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC))
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror 
+# CFLAGS = -Wall -Wextra -Werror 
 
 $(RM) = rm
   
@@ -26,7 +26,7 @@ $(OBJ_DIR)/%.o: %.c
 	@$(CC) ${CFLAGS} -c $< -o $@
 
 $(NAME): $(OBJ) 
-	@$(CC) $(CFLAGS)  $(OBJ)  -o $(NAME)
+	@$(CC) $(CFLAGS)  $(OBJ) -fsanitize=thread  -o $(NAME)
 	@echo "COMPILING MY PROGRAM ...\n"
 
 clean:

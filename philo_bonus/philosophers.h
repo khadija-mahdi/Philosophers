@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:50 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/30 05:27:41 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/01 21:27:35 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
+# include <semaphore.h>
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
@@ -27,7 +28,25 @@ typedef struct s_arguments
 	int					eat_time;
 	int					sleep_time;
 	int					meals_nbr;
+	long				start_time;
 }	t_arguments;
+
+typedef struct s_data
+{
+	pid_t				philosophers;
+	int					philo_id;
+	sem_t				*forks;
+	struct s_arguments	*args;
+	int					meals;
+	long				last_eat;
+
+}	t_data;
+
+typedef struct m_philos
+{
+	t_data	**my_philos;
+	int		curr_philo;
+}		t_philos;
 
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
@@ -39,5 +58,6 @@ void			check_arguments(char **argv, int argc);
 void			exit_msg(char *msg, int i);
 void			check_invalid_argument(t_arguments	*arguments);
 t_arguments		*init_arguments(char **argv, int argc);
+long			get_time_in_ms(void);
 
 #endif

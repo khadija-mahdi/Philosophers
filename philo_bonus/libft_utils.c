@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:01:05 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/01 01:30:15 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/01 03:13:06 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	count(const char *str, int sym)
 	{
 		res = 10 * res + (*str - '0');
 		if (res > 2147483647 && sym == 1)
-			exit_msg("ERROR : Invalid argument\n");
+			exit_msg("ERROR : Invalid argument\n", 1);
 		str++;
 	}
 	return (res * sym);
@@ -58,8 +58,8 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-void	exit_msg(char *msg)
+void	exit_msg(char *msg, int i)
 {
 	printf("%s", msg);
-	return (1);
+	exit (i);
 }
