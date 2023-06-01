@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:29:39 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/01 02:24:48 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/01 02:41:02 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ void	died(t_data *data)
 	pthread_mutex_lock(data->args->mu_print);
 	printf("\n%ld philosopher number %d is"
 		" died\n\n", microseconds, data->philo_id);
-	exit (0);
+	pthread_mutex_unlock(data->args->mu_print);
 }

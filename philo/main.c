@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:58 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/01 02:24:17 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/01 02:53:36 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	*philo_created(void *arg)
 	return (NULL);
 }
 
-void	start_phlip(t_data **data, int condition)
+void	thread_rotaine(t_data **data, int condition)
 {
 	int			i;
 	int			philo_nbr;
@@ -65,28 +65,30 @@ void	start_phlip(t_data **data, int condition)
 	return ;
 }
 
-void	die_conditions(t_data **data, int time, int i)
-{
-	if ((time - data[i]->last_eat) >= data[i]->args->die_time
-		&& time <= (data[i]->args->die_time + 10))
-		died(data[i]);
-}
-
 void	create_philosophers(t_data **data)
 {
-	int	i;
-	int	time;
-	int	philo_nbr;
+	thread_rotaine(data, 2);
+	my_usleep(2 * 1000, data[0]);
+	thread_rotaine(data, 0);
+}
+
+int	main_thread(t_data **data)
+{
+	int				time;
+	int				philo_nbr;
+	int				i;
 
 	i = 0;
-	start_phlip(data, 2);
-	my_usleep(2 * 1000, data[0]);
-	start_phlip(data, 0);
 	philo_nbr = data[0]->args->philo_nbr;
 	while (1)
 	{
 		time = (int)get_program_time(data[0]);
-		die_conditions(data, time, i);
+		if (((time - data[i]->last_eat) >= data[i]->args->die_time
+				&& time <= (data[i]->args->die_time + 10)))
+		{
+			died(data[i]);
+			return (-1);
+		}
 		if (data[i]->args->meals_nbr && data[i]->meals
 			&& data[i]->meals == data[0]->args->meals_nbr)
 			break ;
@@ -94,6 +96,7 @@ void	create_philosophers(t_data **data)
 		if (i >= philo_nbr)
 			i = 0;
 	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -111,6 +114,8 @@ int	main(int argc, char **argv)
 		data = init_data(arguments);
 		create_forks (data);
 		create_philosophers(data);
+		if (main_thread(data) == -1)
+			return (0);
 		while (i < data[0]->args->philo_nbr)
 			pthread_join(*(data[i++]->philosophers), NULL);
 		i = 0;
