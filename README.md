@@ -35,7 +35,7 @@ README.md
 
   *There are three ways to implement concurrency in our programs:  [Process](https://github.com/khadija-mahdi/pipex/blob/master/pipex%20f3f377eedb644f1a805c6f479d7576c0/Process%205489eb2fa3234436838be5c8933e078e.md) , threads,  and multiplexing. Let’s concentrate on threads that we should use in our project .*
 
-## $***Mandarory :$***
+## Mandarory :
 
 - **What is a Thread**
     
@@ -407,9 +407,11 @@ README.md
         > 
         
         > **`EINVAL`**: The **`tv`** or **`tz`** argument is NULL.
-        >
 
-## $***Bonus :***$
+
+
+
+## Bonus :
 
 - ***What is semaphores***
     
@@ -421,22 +423,22 @@ README.md
     
     So, semaphores act as control mechanisms, ensuring that processes or threads take turns using shared resources and avoid conflicts or race conditions.
     
-    - *`**differences in handling semaphores between processes and threads?**`*
+    - *`differences in handling semaphores between processes and threads?`*
         
         
-        `*the handling of semaphores can differ between processes and threads. Here are some key differences:*`
+        `the handling of semaphores can differ between processes and threads. Here are some key differences:`
         
-        1. `*Ownership: In process-based concurrency models, such as those implemented using the fork system call, each process has its own copy of resources, including semaphores. When a process forks, the child process inherits a copy of the parent's semaphore values. Each process can operate on its own set of semaphores independently.*`
+        1. `Ownership: In process-based concurrency models, such as those implemented using the fork system call, each process has its own copy of resources, including semaphores. When a process forks, the child process inherits a copy of the parent's semaphore values. Each process can operate on its own set of semaphores independently.`
         
-        `*On the other hand, in thread-based concurrency models, threads within the same process share the same memory space, including semaphores. Threads can access and manipulate the same set of semaphores directly, without the need for inter-process communication mechanisms.*`
+        `On the other hand, in thread-based concurrency models, threads within the same process share the same memory space, including semaphores. Threads can access and manipulate the same set of semaphores directly, without the need for inter-process communication mechanisms.`
         
-        1. `*Synchronization: Processes typically use semaphores to synchronize activities across different processes. For example, a semaphore can be used to ensure that only one process accesses a shared resource at a time. Processes use functions like sem_init, sem_wait, and sem_post to initialize, wait for, and release semaphores, respectively.*`
+        1. `Synchronization: Processes typically use semaphores to synchronize activities across different processes. For example, a semaphore can be used to ensure that only one process accesses a shared resource at a time. Processes use functions like sem_init, sem_wait, and sem_post to initialize, wait for, and release semaphores, respectively.`
         
-        `*Threads, however, can use semaphores for synchronization within the same process. Threads can coordinate their activities, ensuring exclusive access to shared resources. The same functions (sem_init, sem_wait, sem_post) are used by threads to handle semaphores, but the behavior is different because they are operating within the same memory space.*`
+        `Threads, however, can use semaphores for synchronization within the same process. Threads can coordinate their activities, ensuring exclusive access to shared resources. The same functions (sem_init, sem_wait, sem_post) are used by threads to handle semaphores, but the behavior is different because they are operating within the same memory space.`
         
-        1. `*Resource Sharing: In process-based concurrency, processes typically need to use inter-process communication (IPC) mechanisms, such as shared memory or message passing, to share resources between different processes. Semaphores can be used as part of these IPC mechanisms to coordinate resource access.*`
+        1. `Resource Sharing: In process-based concurrency, processes typically need to use inter-process communication (IPC) mechanisms, such as shared memory or message passing, to share resources between different processes. Semaphores can be used as part of these IPC mechanisms to coordinate resource access.`
         
-        `*In thread-based concurrency, threads share the same memory space, so they can access shared resources directly. Semaphores are used to synchronize access to these shared resources, preventing race conditions and ensuring that only one thread accesses the resource at a time.*`
+        `In thread-based concurrency, threads share the same memory space, so they can access shared resources directly. Semaphores are used to synchronize access to these shared resources, preventing race conditions and ensuring that only one thread accesses the resource at a time.`
         
         <aside>
         💡 It's important to note that the handling of semaphores and concurrency mechanisms may vary depending on the operating system and the libraries used for concurrency in C. The details provided above describe the general differences in handling semaphores between processes and threads in C, but specific implementations may have additional nuances or variations.
@@ -445,21 +447,21 @@ README.md
         
 - ***What is the deferent between mutex and semaphore***
     
-    *Mutexes and Semaphores are both synchronization mechanisms used in concurrent programming to control access to shared resources. However, they differ in several ways:*
+    Mutexes and Semaphores are both synchronization mechanisms used in concurrent programming to control access to shared resources. However, they differ in several ways:
     
-    - *A mutex is a binary semaphore, meaning it has only two states: locked and unlocked. A semaphore, on the other hand, can have multiple values.*
-    - *A mutex is used to protect a single resource that can be accessed by only one thread at a time. A semaphore can protect multiple resources or a shared resource that can be accessed by multiple threads at the same time.*
-    - *A mutex is used to enforce mutual exclusion, meaning that only one thread can access the protected resource at a time. A semaphore can be used for various synchronization purposes, including signaling, counting, and mutual exclusion.*
-    - *A mutex can be unlocked only by the thread that locked it. A semaphore can be unlocked by any thread that holds a lock on it.*
-    - *Mutexes are generally faster and simpler to implement than semaphores because they have only two states and are used for a specific purpose. Semaphores are more versatile but can be more complex to use correctly.*
+    - A mutex is a binary semaphore, meaning it has only two states: locked and unlocked. A semaphore, on the other hand, can have multiple values.
+    - A mutex is used to protect a single resource that can be accessed by only one thread at a time. A semaphore can protect multiple resources or a shared resource that can be accessed by multiple threads at the same time.
+    - A mutex is used to enforce mutual exclusion, meaning that only one thread can access the protected resource at a time. A semaphore can be used for various synchronization purposes, including signaling, counting, and mutual exclusion.
+    - A mutex can be unlocked only by the thread that locked it. A semaphore can be unlocked by any thread that holds a lock on it.
+    - Mutexes are generally faster and simpler to implement than semaphores because they have only two states and are used for a specific purpose. Semaphores are more versatile but can be more complex to use correctly.
     
-    *Overall, mutexes are a good choice when you need to protect a single resource that can be accessed by only one thread at a time, while semaphores are more appropriate for situations where you need to coordinate access to multiple resources or manage concurrent access to a shared resource.*
+    Overall, mutexes are a good choice when you need to protect a single resource that can be accessed by only one thread at a time, while semaphores are more appropriate for situations where you need to coordinate access to multiple resources or manage concurrent access to a shared resource.
     
 - ***POSIX Semaphores***
     
     POSIX Semaphores are a synchronization primitive used in concurrent programming to control access to shared resources. They are similar to mutexes, but are more versatile because they can have multiple values.
     
-    To use POSIX Semaphores in a C program, you need to include the library  $**<semaphore.h>**$  and link the program with **$-lrt$**.
+    To use POSIX Semaphores in a C program, you need to include the library  **$semaphore.h$**  and link the program with **$-lrt$**.
     
     The basic functions for working with semaphores are:
     
@@ -547,7 +549,7 @@ README.md
         > ***Parameter:***
         > 
         
-        > sem: *A pointer to the semaphore (of type sem_t*) on which the operation is performed. The semaphore must have been previously initialized using sem_init or obtained from a call to sem_open.*
+        > sem: A pointer to the semaphore (of type sem_t*) on which the operation is performed. The semaphore must have been previously initialized using sem_init or obtained from a call to sem_open.
         > 
         
         > ***Return Value:***
