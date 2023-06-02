@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:50 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/01 21:27:35 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/02 21:05:23 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ typedef struct s_arguments
 	int					sleep_time;
 	int					meals_nbr;
 	long				start_time;
+	sem_t				*forks;
+	sem_t				*sem_print;
 }	t_arguments;
 
 typedef struct s_data
 {
 	pid_t				philosophers;
 	int					philo_id;
-	sem_t				*forks;
 	struct s_arguments	*args;
 	int					meals;
 	long				last_eat;

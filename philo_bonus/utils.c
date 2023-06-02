@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 05:02:24 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/01 21:04:47 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/02 22:05:52 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_arguments	*init_arguments(char **argv, int argc)
 
 	check_arguments(argv, argc);
 	arguments = malloc(sizeof(t_arguments));
-	arguments->start_time = get_time_in_ms();
+	arguments->start_time = get_time_in_ms();	
 	arguments->philo_nbr = ft_atoi(argv[1]);
 	arguments->die_time = ft_atoi(argv[2]);
 	arguments->eat_time = ft_atoi(argv[3]);
