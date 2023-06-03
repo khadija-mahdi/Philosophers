@@ -26,7 +26,7 @@ $(OBJ_DIR)/%.o: %.c
 	@$(CC) ${CFLAGS} -c $< -o $@
 
 $(NAME): $(OBJ) 
-	@$(CC) $(CFLAGS)  $(OBJ) -fsanitize=thread  -o $(NAME)
+	@$(CC) $(CFLAGS)  $(OBJ) -o $(NAME)
 	@echo "COMPILING MY PROGRAM ...\n"
 
 clean:

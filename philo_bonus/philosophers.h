@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:50 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/02 21:05:23 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/03 02:02:54 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+#include <sys/types.h>
+#include <signal.h>
 
 typedef struct s_arguments
 {
