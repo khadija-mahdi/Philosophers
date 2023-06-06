@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:07:21 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/06 02:33:20 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/06 04:50:23 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 void	philosophers_life(t_philos	*philos, t_arguments *arguments)
 {
 	t_data		*data;
-	int			i;
 	int			id;
 
-	i = 0;
 	data = philos->my_philos[philos->curr_philo];
 	id = get_id_value(data, philos);
 	data = philos->my_philos[id];
@@ -26,6 +24,8 @@ void	philosophers_life(t_philos	*philos, t_arguments *arguments)
 	{
 		sem_wait(arguments->forks);
 		print_state(data, "has taken left fork");
+		if (arguments->philo_nbr == 1)
+			sem_wait(arguments->forks);
 		print_state(data, "has taken a right fork");
 		data->last_eat = get_program_time(data);
 		print_state(data, "is eating");
@@ -35,8 +35,7 @@ void	philosophers_life(t_philos	*philos, t_arguments *arguments)
 		print_state(data, "is sleeping");
 		usleep(data->args->sleep_time * 1000);
 		print_state(data, "is thinking");
-		if (data->args->meals_nbr && data->meals
-			&& data->meals == data->args->meals_nbr)
+		if (data->args->meals_nbr && data->meals == data->args->meals_nbr)
 			exit(0);
 	}
 }
@@ -60,12 +59,11 @@ void	*process_thread(void *arg)
 		if (((time - data->last_eat) >= data->args->die_time
 				&& time <= (data->args->die_time + 10)))
 		{
-			sem_wait(data->args->sem_print);
-			time = get_program_time(data);
-			printf("\n%ld philosopher number %d is died \n\n",
-				time, data->philo_id);
+			print_die(data);
 			exit(1);
 		}
+		if (data->args->meals_nbr && data->meals == data->args->meals_nbr)
+			exit(0);
 	}
 	return (NULL);
 }

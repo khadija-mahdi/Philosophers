@@ -68,5 +68,6 @@ t_data			**init_data(t_arguments	*arguments);
 void			print_state(t_data *data, char *msg);
 int				get_id_value(t_data *data, t_philos *philos);
 long			get_program_time(t_data *data);
+void			print_die(t_data *data);
 
 #endif

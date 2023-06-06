@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/01 20:48:55 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/06 03:25:08 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,3 @@ void	my_usleep(useconds_t microseconds, t_data *data)
 	(void) data;
 	usleep(microseconds);
 }
-
-// void	usleep(int time, t_data *data)
-// {
-// 	// long	r_time;
-// 	(void)	data;
-// 	// while (1)
-// 	// {
-// 		usleep(time);
-// 		// r_time = get_program_time(data);
-// 		// printf("r_time : %ld time %d\n", r_time, time);
-// 		// if ((r_time * 1000 ) >= time)
-// 	// 		break ;
-// 	// }
-// }

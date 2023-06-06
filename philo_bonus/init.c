@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:49:07 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/06 02:14:29 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/06 04:39:25 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,13 @@ t_arguments	*init_arguments(char **argv, int argc)
 	arguments->sleep_time = ft_atoi(argv[4]);
 	if (argc == 6)
 		arguments->meals_nbr = ft_atoi(argv[5]);
-	arguments->forks = sem_open("forks", O_CREAT | O_EXCL,
-			0644, (arguments->philo_nbr / 2));
+	else
+		arguments->meals_nbr = 0;
+	if (arguments->philo_nbr > 1)
+		arguments->forks = sem_open("forks", O_CREAT | O_EXCL,
+				0644, (arguments->philo_nbr / 2));
+	else
+		arguments->forks = sem_open("forks", O_CREAT | O_EXCL, 0644, 1);
 	if (arguments->forks == SEM_FAILED)
 		exit_msg("sem_forks error", 1);
 	arguments->sem_print = sem_open("print", O_CREAT | O_EXCL, 0644, 1);

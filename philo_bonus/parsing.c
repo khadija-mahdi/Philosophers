@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 02:00:36 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/06 02:15:09 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/06 04:50:36 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,14 @@ long	get_time_in_ms(void)
 
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+void	print_die(t_data *data)
+{
+	long		time;
+
+	sem_wait(data->args->sem_print);
+	time = get_program_time(data);
+	printf("\n%ld philosopher number %d is died \n\n",
+		time, data->philo_id);
 }
