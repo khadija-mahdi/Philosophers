@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:55:28 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/05/30 23:38:59 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/07 00:32:56 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,10 @@ long	get_time_in_ms(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-long	get_program_time(t_data *data)
-{
-	long	total_microseconds;
-	long	microseconds;
-
-	microseconds = get_time_in_ms();
-	total_microseconds = microseconds - data->args->start_time;
-	return (total_microseconds);
-}
-
 void	put_dwon_forks(t_data *data, t_data *next_data)
 {
-	pthread_mutex_unlock(data->forks);
 	pthread_mutex_unlock(next_data->forks);
+	pthread_mutex_unlock(data->forks);
 }
 
 void	create_forks(t_data **data)

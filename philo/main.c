@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:58 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/06 03:50:02 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/07 00:34:02 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ void	*philo_created(void *arg)
 	data = philos->my_philos[philos->curr_philo];
 	id = get_id_value(data, philos);
 	next_data = philos->my_philos[id];
-	time = get_program_time(data);
+	time = get_time_in_ms() - data->args->start_time;
 	while (1)
 	{
 		pick_up_forks(data, next_data, 0);
 		pick_up_forks(data, next_data, 1);
-		data->last_eat = get_program_time(data);
 		eating(data);
 		put_dwon_forks(data, next_data);
 		sleeping(data);
@@ -67,14 +66,14 @@ void	thread_rotaine(t_data **data, int condition)
 
 void	create_philosophers(t_data **data)
 {
-	thread_rotaine(data, 2);
-	my_usleep(2 * 1000, data[0]);
 	thread_rotaine(data, 0);
+	my_usleep(2);
+	thread_rotaine(data, 2);
 }
 
 int	main_thread(t_data **data)
 {
-	int				time;
+	long			time;
 	int				philo_nbr;
 	int				i;
 
@@ -82,11 +81,9 @@ int	main_thread(t_data **data)
 	philo_nbr = data[0]->args->philo_nbr;
 	while (1)
 	{
-		pthread_mutex_lock(data[0]->args->mu_print);
-		time = (int)get_program_time(data[0]);
-		pthread_mutex_unlock(data[0]->args->mu_print);
-		if (((time - data[i]->last_eat) >= data[i]->args->die_time)
-			&& time <= (data[i]->args->die_time + 10))
+		time = get_time_in_ms() - data[0]->args->start_time;
+		if (time - data[i]->last_eat >= (data[0]->args->die_time)
+			&& time <= (data[0]->args->die_time + 10))
 		{
 			died(data[i]);
 			return (-1);

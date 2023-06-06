@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/06 03:25:08 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/07 00:36:52 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,16 @@ t_data	**init_data(t_arguments	*arguments)
 	return (data);
 }
 
-void	my_usleep(useconds_t microseconds, t_data *data)
+void	my_usleep(useconds_t microseconds)
 {
-	(void) data;
-	usleep(microseconds);
+	long	time;
+	long	start_time;
+
+	start_time = get_time_in_ms();
+	time = 0;
+	while (time < microseconds)
+	{
+		usleep(10);
+		time = get_time_in_ms() - start_time;
+	}
 }

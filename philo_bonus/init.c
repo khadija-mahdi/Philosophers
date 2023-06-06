@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:49:07 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/06 04:39:25 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/07 00:36:32 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,6 @@ t_arguments	*init_arguments(char **argv, int argc)
 	return (arguments);
 }
 
-long	get_program_time(t_data *data)
-{
-	long	total_microseconds;
-	long	microseconds;
-
-	microseconds = get_time_in_ms();
-	total_microseconds = microseconds - data->args->start_time;
-	return (total_microseconds);
-}
-
 int	get_id_value(t_data *data, t_philos *philos)
 {
 	int	id;
@@ -84,8 +74,22 @@ void	print_state(t_data *data, char *msg)
 {
 	long	time;
 
-	time = get_program_time(data);
+	time = get_time_in_ms() - data->args->start_time;
 	sem_wait(data->args->sem_print);
 	printf("\n%ld philosopher number %d %s\n\n", time, data->philo_id, msg);
 	sem_post(data->args->sem_print);
+}
+
+void	my_usleep(useconds_t microseconds)
+{
+	long	time;
+	long	start_time;
+
+	start_time = get_time_in_ms();
+	time = 0;
+	while (time < microseconds)
+	{
+		usleep(10);
+		time = get_time_in_ms() - start_time;
+	}
 }

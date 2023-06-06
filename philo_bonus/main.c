@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:07:21 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/06 04:50:23 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/07 00:37:16 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	philosophers_life(t_philos	*philos, t_arguments *arguments)
 		if (arguments->philo_nbr == 1)
 			sem_wait(arguments->forks);
 		print_state(data, "has taken a right fork");
-		data->last_eat = get_program_time(data);
+		data->last_eat = get_time_in_ms() - data->args->start_time;
 		print_state(data, "is eating");
-		usleep(data->args->eat_time * 1000);
+		my_usleep(data->args->eat_time);
 		data->meals++;
 		sem_post(arguments->forks);
 		print_state(data, "is sleeping");
-		usleep(data->args->sleep_time * 1000);
+		my_usleep(data->args->sleep_time);
 		print_state(data, "is thinking");
 		if (data->args->meals_nbr && data->meals == data->args->meals_nbr)
 			exit(0);
@@ -54,7 +54,7 @@ void	*process_thread(void *arg)
 	while (1)
 	{
 		sem_wait(data->args->sem_print);
-		time = get_program_time(data);
+		time = get_time_in_ms() - data->args->start_time;
 		sem_post(data->args->sem_print);
 		if (((time - data->last_eat) >= data->args->die_time
 				&& time <= (data->args->die_time + 10)))

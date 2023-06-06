@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:50 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/01 01:47:16 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/07 00:34:08 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ t_arguments		*init_arguments(char **argv, int argc);
 t_data			**init_data(t_arguments	*arguments);
 void			*philo_created(void *arg);
 long			get_time_in_ms(void);
-long			get_program_time(t_data *data);
-void			my_usleep(useconds_t microseconds, t_data *data);
+void			my_usleep(useconds_t microseconds);
 void			eating(t_data *data);
 void			sleeping(t_data *data);
 void			died(t_data *data);
