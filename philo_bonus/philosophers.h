@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   mainophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:50 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/03 02:02:54 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/05 22:22:54 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
-#include <sys/types.h>
-#include <signal.h>
+# include <sys/types.h>
+# include <signal.h>
 
 typedef struct s_arguments
 {
@@ -33,6 +33,8 @@ typedef struct s_arguments
 	long				start_time;
 	sem_t				*forks;
 	sem_t				*sem_print;
+	int					status;
+	int					chker;
 }	t_arguments;
 
 typedef struct s_data
@@ -62,5 +64,9 @@ void			exit_msg(char *msg, int i);
 void			check_invalid_argument(t_arguments	*arguments);
 t_arguments		*init_arguments(char **argv, int argc);
 long			get_time_in_ms(void);
+t_data			**init_data(t_arguments	*arguments);
+void			print_state(t_data *data, char *msg);
+int				get_id_value(t_data *data, t_philos *philos);
+long			get_program_time(t_data *data);
 
 #endif

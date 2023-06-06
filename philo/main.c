@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:58 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/01 02:53:36 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/06 02:42:55 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,11 @@ int	main_thread(t_data **data)
 	philo_nbr = data[0]->args->philo_nbr;
 	while (1)
 	{
+		pthread_mutex_lock(data[0]->args->mu_print);
 		time = (int)get_program_time(data[0]);
-		if (((time - data[i]->last_eat) >= data[i]->args->die_time
-				&& time <= (data[i]->args->die_time + 10)))
+		pthread_mutex_unlock(data[0]->args->mu_print);
+		if (((time - data[i]->last_eat) >= data[i]->args->die_time)
+			&& time <= (data[i]->args->die_time + 10))
 		{
 			died(data[i]);
 			return (-1);

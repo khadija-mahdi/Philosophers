@@ -1,10 +1,9 @@
 NAME= philo_bonus
 
 SRC= main.c\
+	parsing.c\
 	utils.c\
-	libft_utils.c\
-
-
+	init.c\
 
 OBJ= $(SRC:.c=.o)
 
@@ -14,7 +13,7 @@ OBJ= $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC))
 
 CC = cc
 
-# CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror 
 
 $(RM) = rm
   
