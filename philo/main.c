@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:58 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/07 00:34:02 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/07 08:20:12 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,23 @@ void	*philo_created(void *arg)
 	return (NULL);
 }
 
-void	thread_rotaine(t_data **data, int condition)
+void	thread_rotaine(t_data **data, int start)
 {
 	int			i;
 	int			philo_nbr;
 	t_philos	*philos;
 
 	philo_nbr = data[0]->args->philo_nbr;
-	i = 0;
+	i = start;
 	while (i < philo_nbr)
 	{
-		if ((condition && i % 2 == 0) || (!condition && i % 2 != 0))
-		{
-			philos = malloc(sizeof(t_philos));
-			philos->my_philos = data;
-			philos->curr_philo = i;
-			if (pthread_create(data[i]->philosophers, NULL, philo_created,
-					philos))
-				return ;
-		}
-		i++;
+		philos = malloc(sizeof(t_philos));
+		philos->my_philos = data;
+		philos->curr_philo = i;
+		if (pthread_create(data[i]->philosophers, NULL, philo_created,
+				philos))
+			return ;
+		i += 2;
 	}
 	return ;
 }
@@ -67,8 +64,8 @@ void	thread_rotaine(t_data **data, int condition)
 void	create_philosophers(t_data **data)
 {
 	thread_rotaine(data, 0);
-	my_usleep(2);
-	thread_rotaine(data, 2);
+	my_usleep(3);
+	thread_rotaine(data, 1);
 }
 
 int	main_thread(t_data **data)
@@ -94,6 +91,7 @@ int	main_thread(t_data **data)
 		i++;
 		if (i >= philo_nbr)
 			i = 0;
+		my_usleep(1 / 100);
 	}
 	return (0);
 }

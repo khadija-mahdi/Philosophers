@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 02:00:36 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/07 00:32:05 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/07 08:05:25 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ void	print_die(t_data *data)
 
 	sem_wait(data->args->sem_print);
 	time = get_time_in_ms() - data->args->start_time;
-	printf("\n%ld philosopher number %d is died \n\n",
+	printf("%ld philosopher number %d is died \n",
 		time, data->philo_id);
 }

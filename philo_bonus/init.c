@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:49:07 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/07 00:36:32 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/07 08:04:48 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	print_state(t_data *data, char *msg)
 
 	time = get_time_in_ms() - data->args->start_time;
 	sem_wait(data->args->sem_print);
-	printf("\n%ld philosopher number %d %s\n\n", time, data->philo_id, msg);
+	printf("%ld philosopher number %d %s\n", time, data->philo_id, msg);
 	sem_post(data->args->sem_print);
 }
 
@@ -89,7 +89,7 @@ void	my_usleep(useconds_t microseconds)
 	time = 0;
 	while (time < microseconds)
 	{
-		usleep(10);
+		usleep(300);
 		time = get_time_in_ms() - start_time;
 	}
 }
