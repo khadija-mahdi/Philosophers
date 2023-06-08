@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:55:47 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/07 07:46:09 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/08 03:06:07 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ t_arguments	*init_arguments(char **argv, int argc)
 	arguments->sleep_time = ft_atoi(argv[4]);
 	if (argc == 6)
 		arguments->meals_nbr = ft_atoi(argv[5]);
+	else
+		arguments->meals_nbr = 0;
 	arguments->mu_print = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(arguments->mu_print, NULL);
 	return (arguments);
@@ -90,6 +92,7 @@ t_data	**init_data(t_arguments	*arguments)
 		data[i]->philo_id = i + 1;
 		data[i]->meals = 0;
 		data[i]->last_eat = 0;
+		data[i]->is_eating = 0;
 		i++;
 	}
 	return (data);
@@ -104,7 +107,7 @@ void	my_usleep(useconds_t microseconds)
 	time = 0;
 	while (time < microseconds)
 	{
-		usleep(300);
+		usleep(200);
 		time = get_time_in_ms() - start_time;
 	}
 }

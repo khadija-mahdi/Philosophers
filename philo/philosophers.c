@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:55:28 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/07 02:14:30 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/08 01:06:30 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	put_dwon_forks(t_data *data, t_data *next_data)
 {
 	pthread_mutex_unlock(data->forks);
 	pthread_mutex_unlock(next_data->forks);
+	data->is_eating = 0;
 }
 
 void	create_forks(t_data **data)

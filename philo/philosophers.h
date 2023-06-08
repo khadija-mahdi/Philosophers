@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:50 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/07 00:34:08 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/08 01:07:24 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_data
 	struct s_arguments	*args;
 	int					meals;
 	long				last_eat;
+	int					is_eating;
 
 }	t_data;
 

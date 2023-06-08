@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:14:58 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/07 08:20:12 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/08 03:10:37 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	thread_rotaine(t_data **data, int start)
 void	create_philosophers(t_data **data)
 {
 	thread_rotaine(data, 0);
-	my_usleep(3);
+	my_usleep(2);
 	thread_rotaine(data, 1);
 }
 
@@ -78,9 +78,12 @@ int	main_thread(t_data **data)
 	philo_nbr = data[0]->args->philo_nbr;
 	while (1)
 	{
+		pthread_mutex_lock(data[0]->args->mu_print);
 		time = get_time_in_ms() - data[0]->args->start_time;
-		if (time - data[i]->last_eat >= (data[0]->args->die_time)
-			&& time <= (data[0]->args->die_time + 10))
+		pthread_mutex_unlock(data[0]->args->mu_print);
+		if ((time >= data[0]->args->die_time && time <= data[0]->args->die_time + 10)
+			&& ((time - data[i]->last_eat) >= data[i]->args->die_time)
+			&& !data[i]->is_eating)
 		{
 			died(data[i]);
 			return (-1);
@@ -91,7 +94,7 @@ int	main_thread(t_data **data)
 		i++;
 		if (i >= philo_nbr)
 			i = 0;
-		my_usleep(1 / 100);
+		usleep(1);
 	}
 	return (0);
 }
@@ -110,6 +113,7 @@ int	main(int argc, char **argv)
 			return (1);
 		data = init_data(arguments);
 		create_forks (data);
+		arguments->start_time = get_time_in_ms();
 		create_philosophers(data);
 		if (main_thread(data) == -1)
 			return (0);

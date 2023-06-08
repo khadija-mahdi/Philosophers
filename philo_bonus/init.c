@@ -6,7 +6,7 @@
 /*   By: kmahdi <kmahdi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:49:07 by kmahdi            #+#    #+#             */
-/*   Updated: 2023/06/07 08:04:48 by kmahdi           ###   ########.fr       */
+/*   Updated: 2023/06/07 21:28:02 by kmahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	my_usleep(useconds_t microseconds)
 	time = 0;
 	while (time < microseconds)
 	{
-		usleep(300);
+		usleep(250);
 		time = get_time_in_ms() - start_time;
 	}
 }
